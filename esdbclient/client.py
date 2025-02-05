@@ -1831,6 +1831,7 @@ class EventStoreDBClient(BaseEventStoreDBClient):
         self,
         name: str,
         *,
+        partition: Optional[str] = None,
         timeout: Optional[float] = None,
         credentials: Optional[grpc.CallCredentials] = None,
     ) -> ProjectionState:
@@ -1841,7 +1842,7 @@ class EventStoreDBClient(BaseEventStoreDBClient):
 
         return self.projections.get_state(
             name=name,
-            partition="",
+            partition=partition or "",
             timeout=timeout,
             metadata=self._call_metadata,
             credentials=credentials or self._call_credentials,

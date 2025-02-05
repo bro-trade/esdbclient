@@ -1578,6 +1578,7 @@ class AsyncEventStoreDBClient(BaseEventStoreDBClient):
         self,
         name: str,
         *,
+        partition: Optional[str] = None,
         timeout: Optional[float] = None,
         credentials: Optional[grpc.CallCredentials] = None,
     ) -> ProjectionState:
@@ -1588,7 +1589,7 @@ class AsyncEventStoreDBClient(BaseEventStoreDBClient):
 
         return await self._connection.projections.get_state(
             name=name,
-            partition="",
+            partition=partition or "",
             timeout=timeout,
             metadata=self._call_metadata,
             credentials=credentials or self._call_credentials,
